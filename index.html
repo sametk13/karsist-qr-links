@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex" />
+  <title>Yönlendiriliyor...</title>
+</head>
+<body>
+  <p>Yönlendiriliyor...</p>
+
+  <script>
+    const code = new URLSearchParams(window.location.search).get("to");
+
+    fetch("./links.json")
+      .then(response => response.json())
+      .then(links => {
+        const target = links[code];
+
+        if (!target) {
+          document.body.innerHTML = "Link bulunamadı.";
+          return;
+        }
+
+        window.location.replace(target);
+      })
+      .catch(() => {
+        document.body.innerHTML = "Bir hata oluştu.";
+      });
+  </script>
+</body>
+</html>
